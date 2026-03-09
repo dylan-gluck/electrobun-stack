@@ -25,7 +25,7 @@ const url = await getMainViewUrl();
 
 // @ts-expect-error
 const mainWindow = new BrowserWindow({
-	title: "Electrobun Test",
+	title: "Electrobun Shadcn",
 	url,
 	titleBarStyle: "hiddenInset",
 	transparent: true,

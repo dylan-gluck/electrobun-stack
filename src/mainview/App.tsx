@@ -4,7 +4,7 @@ function App() {
 	const [count, setCount] = useState(0);
 
 	return (
-		<div className="min-h-screen bg-black/90">
+		<div className="min-h-screen bg-background/70">
 			<div className="container mx-auto px-4 py-10 max-w-3xl">
 				<h1 className="text-5xl font-bold text-center text-white mb-2 drop-shadow-lg">
 					React + Tailwind + Vite
