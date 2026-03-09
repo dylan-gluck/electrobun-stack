@@ -2,8 +2,8 @@ import type { ElectrobunConfig } from "electrobun";
 
 export default {
 	app: {
-		name: "Electrobun Shadcn-ui",
-		identifier: "reacttailwindvite.electrobun.dev",
+		name: "Electrobun-Shadcn",
+		identifier: "shadcn.electrobun.dev",
 		version: "0.0.1",
 	},
 	build: {

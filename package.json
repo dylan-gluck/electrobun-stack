@@ -1,7 +1,7 @@
 {
-	"name": "electrobun-react-tailwind-vite",
+	"name": "electrobun-shadcn",
 	"version": "1.0.0",
-	"description": "Electrobun app with React, Tailwind CSS, and Vite HMR",
+	"description": "Electrobun app with React, Tailwind CSS + Shadcn-ui, and Vite HMR",
 	"scripts": {
 		"start": "vite build && electrobun dev",
 		"dev": "electrobun dev --watch",
