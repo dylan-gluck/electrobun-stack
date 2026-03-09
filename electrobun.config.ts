@@ -19,7 +19,7 @@ export default {
 			codesign: true,
 			notarize: true,
 			bundleCEF: false,
-			icons: "icon.iconset",
+			icons: "assets/icon.iconset",
 		},
 		linux: {
 			bundleCEF: true,
