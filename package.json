@@ -7,7 +7,11 @@
 		"dev": "electrobun dev --watch",
 		"dev:hmr": "concurrently \"bun run hmr\" \"bun run start\"",
 		"hmr": "vite --port 5173",
-		"build:canary": "vite build && electrobun build --env=canary"
+		"build:canary": "vite build && electrobun build --env=canary",
+		"lint": "biome check .",
+		"lint:fix": "biome check --fix .",
+		"format": "biome format .",
+		"format:fix": "biome format --fix ."
 	},
 	"dependencies": {
 		"@base-ui/react": "^1.2.0",
@@ -34,6 +38,7 @@
 		"vaul": "^1.1.2"
 	},
 	"devDependencies": {
+		"@biomejs/biome": "^2.4.6",
 		"@tailwindcss/vite": "^4.2.1",
 		"@types/bun": "latest",
 		"@types/react": "^18.3.12",
