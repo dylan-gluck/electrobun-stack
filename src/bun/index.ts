@@ -24,7 +24,7 @@ async function getMainViewUrl(): Promise<string> {
 const url = await getMainViewUrl();
 
 // @ts-expect-error
-const mainWindow = new BrowserWindow({
+const _mainWindow = new BrowserWindow({
 	title: "Electrobun Shadcn",
 	url,
 	titleBarStyle: "hiddenInset",

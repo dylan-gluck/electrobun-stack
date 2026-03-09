@@ -2,7 +2,7 @@ import type { ElectrobunConfig } from "electrobun";
 
 export default {
 	app: {
-		name: "Electrobun Test",
+		name: "Electrobun Shadcn-ui",
 		identifier: "reacttailwindvite.electrobun.dev",
 		version: "0.0.1",
 	},
@@ -13,6 +13,7 @@ export default {
 			"dist/assets": "views/mainview/assets",
 		},
 		// Ignore Vite output in watch mode — HMR handles view rebuilds separately
+		// @ts-expect-error
 		watchIgnore: ["dist/**"],
 		mac: {
 			bundleCEF: false,
