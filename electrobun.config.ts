@@ -16,8 +16,8 @@ export default {
 		// @ts-expect-error
 		watchIgnore: ["dist/**"],
 		mac: {
-			codesign: true,
-			notarize: true,
+			codesign: false,
+			notarize: false,
 			bundleCEF: false,
 			icons: "assets/icon.iconset",
 		},
