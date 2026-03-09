@@ -4,19 +4,19 @@ import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
 export default defineConfig({
-	plugins: [react(), tailwindcss()],
-	root: "src/mainview",
-	resolve: {
-		alias: {
-			"@": path.resolve(__dirname, "src"),
-		},
-	},
-	build: {
-		outDir: "../../dist",
-		emptyOutDir: true,
-	},
-	server: {
-		port: 5173,
-		strictPort: true,
-	},
+  plugins: [react(), tailwindcss()],
+  root: "src/mainview",
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "src"),
+    },
+  },
+  build: {
+    outDir: "../../dist",
+    emptyOutDir: true,
+  },
+  server: {
+    port: 5173,
+    strictPort: true,
+  },
 });

@@ -12,6 +12,7 @@ Getting started: https://blackboard.sh/electrobun/docs/
 ## Quick Reference
 
 Import patterns:
+
 - Main process (Bun): `import { BrowserWindow } from "electrobun/bun"`
 - Browser context: `import { Electroview } from "electrobun/view"`
 

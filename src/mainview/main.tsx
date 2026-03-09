@@ -7,11 +7,11 @@ import "./index.css";
 
 // biome-ignore lint: Initialize electrobun app
 createRoot(document.getElementById("root")!).render(
-	<StrictMode>
-		<ThemeProvider>
-			<TooltipProvider>
-				<App />
-			</TooltipProvider>
-		</ThemeProvider>
-	</StrictMode>,
+  <StrictMode>
+    <ThemeProvider>
+      <TooltipProvider>
+        <App />
+      </TooltipProvider>
+    </ThemeProvider>
+  </StrictMode>,
 );
