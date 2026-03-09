@@ -1,122 +1,225 @@
-# Electrobun Shadcn
+# Electrobun + Shadcn
 
-Desktop application built with [Electrobun](https://blackboard.sh/electrobun/docs/), React 19, TailwindCSS 4, and [shadcn/ui](https://ui.shadcn.com). Uses TanStack Router (hash-based, file-based routing) and TanStack Query for async state management over Electrobun's typed RPC.
+Bootstrap template for building native macOS desktop applications with [Electrobun](https://blackboard.sh/electrobun/docs/), React 19, Vite 6, TailwindCSS 4, and [shadcn/ui](https://ui.shadcn.com).
 
-## Getting Started
+Ships with TanStack Router (hash-based, file-based routing), TanStack Query (async state over typed RPC), TanStack Table, and a layered backend (controller / service / repository) running on Bun.
+
+---
+
+## Quick Start
 
 ```bash
 bun install
 
-# Build + launch the Electrobun app (bundled assets)
+# Build + launch the app
 bun run start
 
 # Development with Vite HMR (recommended)
 bun run dev:hmr
 
-# Build for production
+# Production build
 bun run build:stable
 ```
 
 ## Scripts
 
-| Script    | Command                                              | Description                        |
-| --------- | ---------------------------------------------------- | ---------------------------------- |
-| `start`   | `vite build && electrobun dev`                       | Build assets, launch in dev mode   |
-| `dev`     | `electrobun dev --watch`                             | Launch with file watching (no HMR) |
-| `dev:hmr` | `concurrently "vite" "vite build && electrobun dev"` | Vite HMR + Electrobun              |
-| `build`   | `vite build && electrobun build`                     | Production build                   |
-| `ci`      | `concurrently "oxlint --fix" "oxfmt"`                | Lint + format                      |
+| Script         | Command                                              | Description                             |
+| -------------- | ---------------------------------------------------- | --------------------------------------- |
+| `start`        | `vite build && electrobun dev`                       | Build assets, launch in dev mode        |
+| `dev`          | `electrobun dev --watch`                             | Launch with file watching (no HMR)      |
+| `dev:hmr`      | `concurrently "vite" "vite build && electrobun dev"` | Vite HMR + Electrobun                   |
+| `build`        | `vite build && electrobun build`                     | Production build                        |
+| `build:canary` | `vite build && electrobun build --env=canary`        | Canary channel build                    |
+| `build:stable` | `vite build && electrobun build --env=stable`        | Stable channel build                    |
+| `lint`         | `oxlint`                                             | Lint (oxlint)                           |
+| `lint:fix`     | `oxlint --fix`                                       | Lint + autofix                          |
+| `fmt`          | `oxfmt`                                              | Format (oxfmt)                          |
+| `fmt:check`    | `oxfmt --check`                                      | Check formatting                        |
+| `ci`           | `concurrently "oxlint --fix" "oxfmt"`                | Lint + format (CI gate)                 |
+
+---
 
 ## How HMR Works
 
-The main process (`src/bun/index.ts`) probes `http://localhost:5173` on startup. If reachable, the app loads from the Vite dev server; otherwise it falls back to `views://app/index.html`.
+The main process (`src/bun/index.ts`) checks the Electrobun update channel. In `dev` channel, it probes `http://localhost:5173` on startup. If reachable, the app loads from the Vite dev server with instant HMR. Otherwise it falls back to the bundled `views://app/index.html`.
 
-- **`bun run dev:hmr`**: Starts Vite on port 5173, then builds and launches Electrobun. The app loads from Vite with instant HMR.
-- **`bun run start`**: Builds assets, launches Electrobun loading from bundled `views://app/index.html`. Rebuild to see changes.
+- **`bun run dev:hmr`** -- Starts Vite on port 5173, then builds and launches Electrobun. The BrowserWindow loads from Vite.
+- **`bun run start`** -- Builds assets first, then launches Electrobun loading from the bundled HTML. Rebuild to see changes.
+
+---
 
 ## Architecture
 
-### Routing
+### Frontend
 
-SPA with hash-based client-side routing (`createHashHistory`). Required because `views://` is filesystem-backed with no server-side rewrite.
+SPA with hash-based client-side routing via `createHashHistory`. Hash routing is required because Electrobun's `views://` protocol is filesystem-backed with no server-side rewrite support.
 
-Routes use [TanStack Router file-based routing](https://tanstack.com/router/latest/docs/framework/react/guide/file-based-routing) with flat `.`-separated nesting. Route files live in `src/app/routes/`. The generated route tree (`src/app/routeTree.gen.ts`) is auto-generated by the Vite plugin and gitignored.
+Routes use [TanStack Router file-based routing](https://tanstack.com/router/latest/docs/framework/react/guide/file-based-routing) with flat `.`-separated nesting. Route files live in `src/app/routes/`. The generated route tree (`routeTree.gen.ts`) is auto-generated by the Vite plugin and gitignored.
+
+The root layout (`__root.tsx`) wraps the app with providers:
+
+- `ThemeProvider` -- dark / light / system theme with `localStorage` persistence
+- `ActiveProjectProvider` -- tracks selected project across views
+- `SidebarProvider` + `TooltipProvider` -- shadcn layout primitives
+
+### Backend (Bun Process)
+
+The Bun-side code follows a **controller / service / repository** pattern:
+
+```
+Controller  -->  Service  -->  Repository  -->  Data Source
+```
+
+Each entity (project, task) has its own file at each layer under `src/api/`. Repositories currently read from static JSON files in `src/lib/data/`. Swap these for a database, HTTP calls, or any other data source without changing the layers above.
 
 ### RPC
 
-Bidirectional typed RPC between the browser (React) and main process (Bun) via Electrobun's `BrowserView.defineRPC` / `Electroview.defineRPC`. The shared type contract is in `src/lib/types/rpc.ts`.
+Bidirectional typed RPC between the browser (React) and main process (Bun) via Electrobun's `BrowserView.defineRPC`. The type contract lives in `src/bun/rpc.ts` as the `RPC` type.
 
-- **Browser side**: `src/lib/electroview.ts` exports a guarded `Electroview` instance (null in browser dev mode where the Electrobun runtime is absent).
-- **Bun side**: `src/bun/rpc/index.ts` defines request and message handlers.
+- **Browser side**: `src/lib/electroview.ts` exports a guarded `Electroview` instance (`null` when running in a plain browser during development).
+- **Bun side**: `src/bun/rpc.ts` defines request and message handlers, delegating to controllers.
+
+TanStack Query hooks in `src/hooks/queries/` call RPC when the Electrobun runtime is present and fall back to static JSON imports when it is not (browser-only dev).
 
 TanStack Query is configured with `networkMode: "always"` because RPC is local IPC, not HTTP.
 
 ### Adding an RPC Method
 
-1. Define the type in `src/lib/types/rpc.ts` under `bun.requests`:
+1. Add the type to the `RPC` type in `src/bun/rpc.ts` under `bun.requests`:
    ```ts
    getItems: { params: { filter?: string }; response: Item[] };
    ```
-2. Implement the handler in `src/bun/rpc/index.ts`:
+2. Implement the handler in the same file under `handlers.requests`:
    ```ts
    requests: {
-     getItems: ({ filter }) => db.query(filter);
+     getItems: ({ filter }) => itemController.getItems({ filter }),
    }
    ```
-3. Call it from a TanStack Query hook:
-
+3. Build the controller / service / repository chain in `src/api/`.
+4. Create a TanStack Query hook in `src/hooks/queries/`:
    ```ts
    import { electroview } from "@/lib/electroview";
 
-   export function useItems(filter?: string) {
-     return useQuery({
+   export const itemsQueryOptions = (filter?: string) =>
+     queryOptions({
        queryKey: ["items", { filter }],
        queryFn: () => electroview!.rpc.request.getItems({ filter }),
        enabled: !!electroview,
      });
-   }
    ```
+
+---
 
 ## Project Structure
 
 ```
 src/
+  api/
+    controllers/              # Request handlers (thin, delegate to services)
+      project.controller.ts
+      task.controller.ts
+    services/                 # Business logic
+      project.service.ts
+      task.service.ts
+    repositories/             # Data access (currently static JSON)
+      project.repository.ts
+      task.repository.ts
   app/
-    index.html              # SPA HTML shell
-    index.tsx               # React entry (hash router, QueryClient, providers)
-    routeTree.gen.ts        # Auto-generated route tree (gitignored)
+    index.html                # SPA HTML shell
+    index.tsx                 # React entry (hash router, QueryClient, providers)
     routes/
-      __root.tsx            # Root layout (sidebar + outlet)
-      index.tsx             # / — dashboard page
-      auth.tsx              # /auth — placeholder
+      __root.tsx              # Root layout (sidebar, providers, outlet)
+      index.tsx               # / -- dashboard (stats, chart, activity, table)
+      tasks.$taskId.tsx       # /tasks/:taskId -- task detail view
   bun/
-    index.ts                # Main process (BrowserWindow, HMR detection)
-    rpc/
-      index.ts              # Bun-side RPC handlers
+    index.ts                  # Main process (BrowserWindow, HMR detection)
+    rpc.ts                    # RPC type contract + handler wiring
   components/
-    app-sidebar.tsx         # Application sidebar
-    layouts/
-      context-providers.tsx # ThemeProvider + TooltipProvider
-    ui/                     # 55 shadcn/ui components
+    dashboard/                # Dashboard-specific components
+      activity-feed.tsx
+      project-summary-card.tsx
+      stats-grid.tsx
+      task-velocity-chart.tsx
+      tasks-table.tsx
+    global/                   # App-wide layout components
+      app-sidebar.tsx
+      nav-main.tsx
+      nav-projects.tsx
+      nav-user.tsx
+      page-header.tsx
+    tasks/                    # Task detail view components
+      task-activity.tsx
+      task-back-link.tsx
+      task-description.tsx
+      task-meta-card.tsx
+      task-sidebar-info.tsx
+      task-subtasks.tsx
+    ui/                       # 55 shadcn/ui components
   hooks/
-    use-mobile.ts           # Responsive breakpoint hook
+    queries/                  # TanStack Query options (RPC + JSON fallback)
+      activity.ts
+      projects.ts
+      tasks.ts
+      team.ts
+    use-mobile.ts             # Responsive breakpoint hook
   lib/
-    electroview.ts          # Browser-side RPC singleton (guarded)
-    utils.ts                # cn() — clsx + tailwind-merge
-    types/
-      rpc.ts                # Shared AppRPC type contract
+    context/
+      active-project.tsx      # Active project context + provider
+      theme-provider.tsx      # Theme context (dark/light/system)
+    data/                     # Static JSON seed data
+      activity.json
+      projects.json
+      tasks.json
+      team.json
+    types/                    # TypeScript types organized by entity
+      activity.ts
+      project.ts
+      task.ts
+      team.ts
+    electroview.ts            # Browser-side RPC singleton (guarded)
+    format.ts                 # Label formatting + badge variant maps
+    utils.ts                  # cn() -- clsx + tailwind-merge
   styles/
-    global.css              # Tailwind CSS + theme tokens
-electrobun.config.ts        # App metadata, build, copy rules
-vite.config.ts              # Vite + TanStack Router plugin + Tailwind
-components.json             # shadcn/ui configuration
+    global.css                # Tailwind CSS + theme tokens
+electrobun.config.ts          # App metadata, build, copy rules
+vite.config.ts                # Vite + TanStack Router plugin + Tailwind
+components.json               # shadcn/ui configuration
 ```
+
+---
 
 ## Customizing
 
-- **Routes**: Add files to `src/app/routes/`. Use `.` for nesting (e.g., `settings.profile.tsx` for `/settings/profile`).
-- **Components**: shadcn/ui components in `src/components/ui/`. Add more with `bunx shadcn@latest add <component>`.
-- **Theme**: Edit CSS variables in `src/styles/global.css`.
-- **Window**: Edit `src/bun/index.ts` (title, size, titlebar style).
-- **App metadata**: Edit `electrobun.config.ts`.
-- **Lint/Format**: Uses oxlint + oxfmt (not eslint/prettier). Config in `.oxlintrc.json`.
+**Routes** -- Add files to `src/app/routes/`. Use `.` for nesting (e.g., `settings.profile.tsx` mounts at `/settings/profile`).
+
+**Components** -- shadcn/ui components live in `src/components/ui/`. Add more:
+```bash
+bunx shadcn@latest add <component>
+```
+
+**Theme** -- Edit CSS variables in `src/styles/global.css`.
+
+**Window** -- Edit `src/bun/index.ts` (title, size, titlebar style, transparency).
+
+**App metadata** -- Edit `electrobun.config.ts`.
+
+**Lint / Format** -- Uses oxlint + oxfmt (not eslint / prettier). Config in `.oxlintrc.json` and `.oxfmtrc.json`.
+
+---
+
+## Stack
+
+| Layer          | Technology                                   |
+| -------------- | -------------------------------------------- |
+| Runtime        | [Electrobun](https://blackboard.sh/electrobun/docs/) 1.15 + Bun |
+| UI Framework   | React 19                                     |
+| Routing        | TanStack Router (file-based, hash history)   |
+| State          | TanStack Query                               |
+| Tables         | TanStack Table                               |
+| Components     | shadcn/ui (Radix + Base UI primitives)       |
+| Styling        | TailwindCSS 4 + tw-animate-css               |
+| Icons          | Lucide React                                 |
+| Charts         | Recharts                                     |
+| Build          | Vite 6                                       |
+| Language       | TypeScript 5.7                               |
+| Lint / Format  | oxlint + oxfmt                               |
