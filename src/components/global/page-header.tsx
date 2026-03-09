@@ -38,7 +38,7 @@ function ThemeToggle() {
 
 export function PageHeader({ children }: PageHeaderProps) {
   return (
-    <header className="sticky top-0 z-30 flex shrink-0 items-center justify-between gap-2 border-b border-border/50 bg-background/50 py-3 backdrop-blur-md transition-[width,height] ease-linear">
+    <header className="sticky top-0 z-30 flex shrink-0 items-center justify-between gap-2 border-b border-border/50 bg-background py-3 transition-[width,height] ease-linear">
       <div className="flex items-center gap-2 px-4">
         <SidebarTrigger />
         <Separator orientation="vertical" className="mr-2" />

@@ -4,12 +4,13 @@
   "rsc": false,
   "tsx": true,
   "tailwind": {
+    "config": "",
     "css": "src/styles/global.css",
-    "baseColor": "zinc",
+    "baseColor": "mist",
     "cssVariables": true,
     "prefix": ""
   },
-  "iconLibrary": "lucide",
+  "iconLibrary": "tabler",
   "rtl": false,
   "aliases": {
     "components": "@/components",
