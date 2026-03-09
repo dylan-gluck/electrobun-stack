@@ -1,4 +1,6 @@
 import { Link } from "@tanstack/react-router";
+import { ArrowLeftIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface TaskBackLinkProps {
   projectName?: string;
@@ -6,13 +8,11 @@ interface TaskBackLinkProps {
 
 export function TaskBackLink({ projectName }: TaskBackLinkProps) {
   return (
-    <div>
-      <Link
-        to="/"
-        className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors"
-      >
-        &larr; Back to {projectName ?? "Dashboard"}
+    <Button variant="ghost" size="sm" asChild>
+      <Link to="/">
+        <ArrowLeftIcon data-icon="inline-start" />
+        Back to {projectName ?? "Dashboard"}
       </Link>
-    </div>
+    </Button>
   );
 }

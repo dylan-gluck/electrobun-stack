@@ -5,4 +5,8 @@ export interface Project {
   name: string;
   status: ProjectStatus;
   description: string;
+  color: string;
+  teamMemberIds: string[];
+  startDate: string;
+  targetDate: string;
 }

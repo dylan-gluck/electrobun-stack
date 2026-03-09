@@ -3,18 +3,30 @@
     "id": "proj-1",
     "name": "Website Redesign",
     "status": "active",
-    "description": "Complete overhaul of the marketing website with modern design system and improved performance."
+    "description": "Complete overhaul of the marketing website with modern design system and improved performance.",
+    "color": "#6366f1",
+    "teamMemberIds": ["member-1", "member-2", "member-3", "member-4"],
+    "startDate": "2026-02-01",
+    "targetDate": "2026-04-15"
   },
   {
     "id": "proj-2",
     "name": "Mobile App v2",
     "status": "active",
-    "description": "Major update to the mobile application with new navigation, offline support, and push notifications."
+    "description": "Major update to the mobile application with new navigation, offline support, and push notifications.",
+    "color": "#06b6d4",
+    "teamMemberIds": ["member-5", "member-6", "member-7"],
+    "startDate": "2026-01-15",
+    "targetDate": "2026-05-01"
   },
   {
     "id": "proj-3",
     "name": "API Platform",
     "status": "on-hold",
-    "description": "Build a developer-facing API platform with documentation portal, rate limiting, and analytics."
+    "description": "Build a developer-facing API platform with documentation portal, rate limiting, and analytics.",
+    "color": "#f59e0b",
+    "teamMemberIds": ["member-8", "member-9"],
+    "startDate": "2026-03-01",
+    "targetDate": "2026-06-30"
   }
 ]

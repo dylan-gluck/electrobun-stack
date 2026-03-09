@@ -1,0 +1,74 @@
+[
+  {
+    "id": "member-1",
+    "name": "Alice Chen",
+    "email": "alice@example.com",
+    "role": "Lead Designer",
+    "avatar": "",
+    "status": "online"
+  },
+  {
+    "id": "member-2",
+    "name": "Bob Park",
+    "email": "bob@example.com",
+    "role": "Frontend Engineer",
+    "avatar": "",
+    "status": "online"
+  },
+  {
+    "id": "member-3",
+    "name": "Charlie Reeves",
+    "email": "charlie@example.com",
+    "role": "DevOps Engineer",
+    "avatar": "",
+    "status": "away"
+  },
+  {
+    "id": "member-4",
+    "name": "Dana Ortiz",
+    "email": "dana@example.com",
+    "role": "QA Engineer",
+    "avatar": "",
+    "status": "online"
+  },
+  {
+    "id": "member-5",
+    "name": "Eve Nakamura",
+    "email": "eve@example.com",
+    "role": "Mobile Engineer",
+    "avatar": "",
+    "status": "offline"
+  },
+  {
+    "id": "member-6",
+    "name": "Frank Liu",
+    "email": "frank@example.com",
+    "role": "Backend Engineer",
+    "avatar": "",
+    "status": "online"
+  },
+  {
+    "id": "member-7",
+    "name": "Grace Kim",
+    "email": "grace@example.com",
+    "role": "UX Designer",
+    "avatar": "",
+    "status": "away"
+  },
+  {
+    "id": "member-8",
+    "name": "Henry Walsh",
+    "email": "henry@example.com",
+    "role": "API Architect",
+    "avatar": "",
+    "status": "online"
+  },
+  {
+    "id": "member-9",
+    "name": "Iris Patel",
+    "email": "iris@example.com",
+    "role": "Security Engineer",
+    "avatar": "",
+    "status": "offline"
+  }
+]

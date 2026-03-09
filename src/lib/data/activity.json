@@ -1,0 +1,102 @@
+[
+  {
+    "id": "act-1",
+    "projectId": "proj-1",
+    "taskId": "task-1",
+    "taskTitle": "Design homepage mockup",
+    "user": "Alice Chen",
+    "action": "completed",
+    "detail": "Marked as completed",
+    "timestamp": "2026-03-09T14:30:00Z"
+  },
+  {
+    "id": "act-2",
+    "projectId": "proj-1",
+    "taskId": "task-2",
+    "taskTitle": "Implement design system tokens",
+    "user": "Bob Park",
+    "action": "updated",
+    "detail": "Added color token documentation",
+    "timestamp": "2026-03-09T12:15:00Z"
+  },
+  {
+    "id": "act-3",
+    "projectId": "proj-1",
+    "taskId": "task-5",
+    "taskTitle": "Accessibility audit",
+    "user": "Dana Ortiz",
+    "action": "commented",
+    "detail": "Found 3 contrast issues in the nav component",
+    "timestamp": "2026-03-09T10:45:00Z"
+  },
+  {
+    "id": "act-4",
+    "projectId": "proj-2",
+    "taskId": "task-6",
+    "taskTitle": "Implement offline data sync",
+    "user": "Eve Nakamura",
+    "action": "moved",
+    "detail": "Moved from Todo to In Progress",
+    "timestamp": "2026-03-08T16:00:00Z"
+  },
+  {
+    "id": "act-5",
+    "projectId": "proj-1",
+    "taskId": "task-3",
+    "taskTitle": "Set up CI/CD pipeline",
+    "user": "Charlie Reeves",
+    "action": "assigned",
+    "detail": "Assigned to Charlie Reeves",
+    "timestamp": "2026-03-08T09:30:00Z"
+  },
+  {
+    "id": "act-6",
+    "projectId": "proj-2",
+    "taskId": "task-8",
+    "taskTitle": "Navigation redesign",
+    "user": "Grace Kim",
+    "action": "completed",
+    "detail": "Final design approved and merged",
+    "timestamp": "2026-03-07T17:20:00Z"
+  },
+  {
+    "id": "act-7",
+    "projectId": "proj-2",
+    "taskId": "task-9",
+    "taskTitle": "Performance profiling",
+    "user": "Eve Nakamura",
+    "action": "commented",
+    "detail": "Startup time reduced to 1.8s on Pixel 7",
+    "timestamp": "2026-03-07T14:00:00Z"
+  },
+  {
+    "id": "act-8",
+    "projectId": "proj-3",
+    "taskId": "task-10",
+    "taskTitle": "Design API authentication flow",
+    "user": "Henry Walsh",
+    "action": "created",
+    "detail": "Created task with initial spec",
+    "timestamp": "2026-03-06T11:00:00Z"
+  },
+  {
+    "id": "act-9",
+    "projectId": "proj-1",
+    "taskId": "task-2",
+    "taskTitle": "Implement design system tokens",
+    "user": "Bob Park",
+    "action": "moved",
+    "detail": "Moved from Todo to In Progress",
+    "timestamp": "2026-03-06T09:00:00Z"
+  },
+  {
+    "id": "act-10",
+    "projectId": "proj-3",
+    "taskId": "task-11",
+    "taskTitle": "Rate limiting implementation",
+    "user": "Iris Patel",
+    "action": "created",
+    "detail": "Created task with Redis architecture plan",
+    "timestamp": "2026-03-05T15:30:00Z"
+  }
+]
