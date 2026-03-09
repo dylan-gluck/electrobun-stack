@@ -2,11 +2,13 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/figtree";
+@source "../../src/**/*.{ts,tsx}";
+@source "../../node_modules/radix-ui/**/*.{js,mjs}";
 
 @layer base {
 	:root {
 		--font-sans: "Figtree Variable", sans-serif;
-		--background: oklch(1 0 0);
+		--background: oklch(1 0 0 / 0.75);
 		--foreground: oklch(0.141 0.005 285.823);
 		--card: oklch(1 0 0);
 		--card-foreground: oklch(0.141 0.005 285.823);
@@ -30,7 +32,7 @@
 		--chart-4: oklch(0.488 0.243 264.376);
 		--chart-5: oklch(0.424 0.199 265.638);
 		--radius: 0.45rem;
-		--sidebar: oklch(0.985 0 0);
+		--sidebar: var(--background);
 		--sidebar-foreground: oklch(0.141 0.005 285.823);
 		--sidebar-primary: oklch(0.546 0.245 262.881);
 		--sidebar-primary-foreground: oklch(0.97 0.014 254.604);
@@ -40,7 +42,7 @@
 		--sidebar-ring: oklch(0.705 0.015 286.067);
 	}
 	.dark {
-		--background: oklch(0.141 0.005 285.823);
+		--background: oklch(0.141 0.005 285.823 / 0.75);
 		--foreground: oklch(0.985 0 0);
 		--card: oklch(0.21 0.006 285.885);
 		--card-foreground: oklch(0.985 0 0);
@@ -63,7 +65,7 @@
 		--chart-3: oklch(0.546 0.245 262.881);
 		--chart-4: oklch(0.488 0.243 264.376);
 		--chart-5: oklch(0.424 0.199 265.638);
-		--sidebar: oklch(0.21 0.006 285.885);
+		--sidebar: var(--background);
 		--sidebar-foreground: oklch(0.985 0 0);
 		--sidebar-primary: oklch(0.623 0.214 259.815);
 		--sidebar-primary-foreground: oklch(0.97 0.014 254.604);

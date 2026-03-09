@@ -29,6 +29,9 @@ const _mainWindow = new BrowserWindow({
 	url,
 	titleBarStyle: "hiddenInset",
 	transparent: true,
+	styleMask: {
+		borderless: false,
+	},
 });
 
 console.log("React Tailwind Vite app started!");
