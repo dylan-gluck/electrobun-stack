@@ -3,6 +3,7 @@ import type { QueryClient } from "@tanstack/react-query";
 import { AppSidebar } from "@/components/global/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { ThemeProvider } from "@/lib/context/theme-provider";
+import { ActiveProjectProvider } from "@/lib/context/active-project";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 export interface RouterContext {
@@ -16,14 +17,16 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 function RootLayout() {
   return (
     <ThemeProvider>
-      <TooltipProvider>
-        <SidebarProvider>
-          <AppSidebar />
-          <SidebarInset>
-            <Outlet />
-          </SidebarInset>
-        </SidebarProvider>
-      </TooltipProvider>
+      <ActiveProjectProvider>
+        <TooltipProvider>
+          <SidebarProvider>
+            <AppSidebar />
+            <SidebarInset>
+              <Outlet />
+            </SidebarInset>
+          </SidebarProvider>
+        </TooltipProvider>
+      </ActiveProjectProvider>
     </ThemeProvider>
   );
 }

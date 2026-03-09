@@ -10,7 +10,7 @@
     --font-sans: "Figtree Variable", sans-serif;
     --background: oklch(1 0 0 / 0.9);
     --foreground: oklch(0.141 0.005 285.823);
-    --card: oklch(1 0 0);
+    --card: oklch(1 0 0 / 0.9);
     --card-foreground: oklch(0.141 0.005 285.823);
     --popover: oklch(1 0 0);
     --popover-foreground: oklch(0.141 0.005 285.823);
@@ -44,7 +44,7 @@
   .dark {
     --background: oklch(0.141 0.005 285.823 / 0.9);
     --foreground: oklch(0.985 0 0);
-    --card: oklch(0.21 0.006 285.885);
+    --card: oklch(0.21 0.006 285.885 / 0.9);
     --card-foreground: oklch(0.985 0 0);
     --popover: oklch(0.21 0.006 285.885);
     --popover-foreground: oklch(0.985 0 0);

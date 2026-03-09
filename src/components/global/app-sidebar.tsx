@@ -1,7 +1,7 @@
 import { LayoutDashboardIcon } from "lucide-react";
 import type * as React from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { useSearch } from "@tanstack/react-router";
+import { useActiveProject } from "@/lib/context/active-project";
 import { NavMain } from "@/components/global/nav-main";
 import { NavUser } from "@/components/global/nav-user";
 import { NavProjects } from "@/components/global/nav-projects";
@@ -22,8 +22,8 @@ const user = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { data: projects } = useSuspenseQuery(projectsQueryOptions);
-  const search = useSearch({ strict: false }) as { projectId?: string };
-  const activeProjectId = search.projectId ?? projects[0]?.id ?? "";
+  const { activeProjectId: contextProjectId } = useActiveProject();
+  const activeProjectId = contextProjectId ?? projects[0]?.id ?? "";
 
   const navItems = [
     {
