@@ -7,12 +7,9 @@ export default {
     version: "0.0.1",
   },
   build: {
-    // Vite builds to dist/, we copy from there
     copy: {
-      "dist/index.html": "views/mainview/index.html",
-      "dist/assets": "views/mainview/assets",
+      dist: "views/app",
     },
-    // Ignore Vite output in watch mode — HMR handles view rebuilds separately
     // @ts-expect-error
     watchIgnore: ["dist/**"],
     mac: {
@@ -21,11 +18,7 @@ export default {
       bundleCEF: false,
       icons: "assets/icon.iconset",
     },
-    linux: {
-      bundleCEF: true,
-    },
-    win: {
-      bundleCEF: true,
-    },
+    linux: { bundleCEF: true },
+    win: { bundleCEF: true },
   },
 } satisfies ElectrobunConfig;

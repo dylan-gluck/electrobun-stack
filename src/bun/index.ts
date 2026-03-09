@@ -1,10 +1,10 @@
 import { BrowserWindow, Updater } from "electrobun/bun";
+import { rpc } from "./rpc";
 
 const DEV_SERVER_PORT = 5173;
 const DEV_SERVER_URL = `http://localhost:${DEV_SERVER_PORT}`;
 
-// Check if Vite dev server is running for HMR
-async function getMainViewUrl(): Promise<string> {
+async function getAppUrl(): Promise<string> {
   const channel = await Updater.localInfo.channel();
   if (channel === "dev") {
     try {
@@ -15,21 +15,17 @@ async function getMainViewUrl(): Promise<string> {
       console.log("Vite dev server not running. Run 'bun run dev:hmr' for HMR support.");
     }
   }
-  return "views://mainview/index.html";
+  return "views://app/index.html";
 }
 
-// Create the main application window
-const url = await getMainViewUrl();
+const url = await getAppUrl();
 
 // @ts-expect-error
 const _mainWindow = new BrowserWindow({
   title: "Electrobun-Shadcn",
-  url,
   titleBarStyle: "hiddenInset",
   transparent: true,
-  styleMask: {
-    borderless: false,
-  },
+  styleMask: { borderless: false },
+  rpc,
+  url,
 });
-
-console.log("React Tailwind Vite app started!");

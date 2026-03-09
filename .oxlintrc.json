@@ -44,5 +44,5 @@
     "builtin": true
   },
   "globals": {},
-  "ignorePatterns": []
+  "ignorePatterns": ["src/app/routeTree.gen.ts"]
 }

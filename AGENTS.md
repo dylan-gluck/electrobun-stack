@@ -1,25 +1,50 @@
-# Electrobun Project
+# Coding Conventions
 
-This is an Electrobun desktop application.
+## Platform
 
-IMPORTANT: Electrobun is NOT Electron. Do not use Electron APIs or patterns.
+This is an **Electrobun** desktop application. Electrobun is NOT Electron.
+Do not use Electron APIs, patterns, or assumptions.
 
-## Documentation
+- Full API reference: https://blackboard.sh/electrobun/llms.txt
+- Getting started: https://blackboard.sh/electrobun/docs/
 
-Full API reference: https://blackboard.sh/electrobun/llms.txt
-Getting started: https://blackboard.sh/electrobun/docs/
+## URLs
 
-## Quick Reference
+- Use `views://` for bundled assets (e.g., `views://app/index.html`).
+- These are filesystem-backed with no server-side rewrite — hash routing is required.
 
-Import patterns:
+### Vite
 
-- Main process (Bun): `import { BrowserWindow } from "electrobun/bun"`
-- Browser context: `import { Electroview } from "electrobun/view"`
+Plugin order matters: `TanStackRouterVite` must come before `react()` in the plugins array.
+Vite root is `src/app` — TanStack Router plugin paths (`routesDirectory`, `generatedRouteTree`) are relative to that root, not the project root.
 
-Use `views://` URLs to load bundled assets (e.g., `url: "views://mainview/index.html"`).
-Views must be configured in `electrobun.config.ts` to be built and copied into the bundle.
+## RPC
 
-## About
+Typed bidirectional RPC between browser and Bun process.
 
-Electrobun is built by Blackboard (https://blackboard.sh), an innovation lab building
-tools and funding teams that define the next generation of technology.
+### Type Contract
+
+All RPC types live in `src/lib/types/rpc.ts`. Both sides share the `AppRPC` type:
+
+```ts
+export type AppRPC = {
+  bun: RPCSchema<{ requests: { ... }; messages: { ... } }>;
+  webview: RPCSchema<{ requests: { ... }; messages: { ... } }>;
+};
+```
+
+### Bun Side
+
+Handlers in `src/bun/rpc/index.ts` using `BrowserView.defineRPC<AppRPC>()`.
+
+## File Organization
+
+| Path                 | Purpose                                      |
+| -------------------- | -------------------------------------------- |
+| `src/app/`           | SPA entry, routes, generated route tree      |
+| `src/bun/`           | Main process (BrowserWindow, RPC handlers)   |
+| `src/components/ui/` | shadcn/ui primitives                         |
+| `src/components/`    | App-level components (sidebar, nav, layouts) |
+| `src/hooks/`         | React hooks                                  |
+| `src/lib/`           | Utilities, Electroview singleton, types      |
+| `src/styles/`        | Global CSS / Tailwind theme                  |
