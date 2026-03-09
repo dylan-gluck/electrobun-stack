@@ -1,7 +1,7 @@
 import { Electroview } from "electrobun/view";
-import type { AppRPC } from "./types/rpc";
+import type { RPC } from "./rpc";
 
-const rpc = Electroview.defineRPC<AppRPC>({
+const rpc = Electroview.defineRPC<RPC>({
   handlers: {
     requests: {},
     messages: {},

@@ -1,30 +1,26 @@
-"use client";
-
-import { ChevronsUpDownIcon, PlusIcon } from "lucide-react";
-import * as React from "react";
+import { ChevronsUpDownIcon, FolderKanbanIcon } from "lucide-react";
+import { useNavigate } from "@tanstack/react-router";
+import type { Project } from "@/lib/types/project";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 
-export function TeamSwitcher({
-  teams,
+export function NavProjects({
+  projects,
+  activeProjectId,
 }: {
-  teams: {
-    name: string;
-    logo: React.ReactNode;
-    plan: string;
-  }[];
+  projects: Project[];
+  activeProjectId: string;
 }) {
-  const [activeTeam, setActiveTeam] = React.useState(teams[0]);
+  const navigate = useNavigate();
+  const activeProject = projects.find((p) => p.id === activeProjectId);
 
-  if (!activeTeam) {
+  if (!activeProject) {
     return null;
   }
 
@@ -38,11 +34,11 @@ export function TeamSwitcher({
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                {activeTeam.logo}
+                <FolderKanbanIcon className="size-4" />
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{activeTeam.name}</span>
-                <span className="truncate text-xs">{activeTeam.plan}</span>
+                <span className="truncate font-medium">{activeProject.name}</span>
+                <span className="truncate text-xs capitalize">{activeProject.status}</span>
               </div>
               <ChevronsUpDownIcon className="ml-auto" />
             </SidebarMenuButton>
@@ -53,27 +49,21 @@ export function TeamSwitcher({
             side="bottom"
             sideOffset={4}
           >
-            <DropdownMenuLabel className="text-xs text-muted-foreground">Teams</DropdownMenuLabel>
-            {teams.map((team, index) => (
+            <DropdownMenuLabel className="text-xs text-muted-foreground">
+              Projects
+            </DropdownMenuLabel>
+            {projects.map((project) => (
               <DropdownMenuItem
-                key={team.name}
-                onClick={() => setActiveTeam(team)}
+                key={project.id}
+                onClick={() => navigate({ to: "/", search: { projectId: project.id } })}
                 className="gap-2 p-2"
               >
                 <div className="flex size-6 items-center justify-center rounded-md border">
-                  {team.logo}
+                  <FolderKanbanIcon className="size-4" />
                 </div>
-                {team.name}
-                <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
+                {project.name}
               </DropdownMenuItem>
             ))}
-            <DropdownMenuSeparator />
-            <DropdownMenuItem className="gap-2 p-2">
-              <div className="flex size-6 items-center justify-center rounded-md border bg-transparent">
-                <PlusIcon className="size-4" />
-              </div>
-              <div className="font-medium text-muted-foreground">Add team</div>
-            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>

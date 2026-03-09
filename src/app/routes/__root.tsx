@@ -1,8 +1,9 @@
 import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
 import type { QueryClient } from "@tanstack/react-query";
-import { AppSidebar } from "@/components/app-sidebar";
+import { AppSidebar } from "@/components/global/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import ContextProviders from "@/components/layouts/context-providers";
+import { ThemeProvider } from "@/lib/context/theme-provider";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 export interface RouterContext {
   queryClient: QueryClient;
@@ -14,13 +15,15 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 
 function RootLayout() {
   return (
-    <ContextProviders>
-      <SidebarProvider>
-        <AppSidebar />
-        <SidebarInset>
-          <Outlet />
-        </SidebarInset>
-      </SidebarProvider>
-    </ContextProviders>
+    <ThemeProvider>
+      <TooltipProvider>
+        <SidebarProvider>
+          <AppSidebar />
+          <SidebarInset>
+            <Outlet />
+          </SidebarInset>
+        </SidebarProvider>
+      </TooltipProvider>
+    </ThemeProvider>
   );
 }

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "proj-1",
+    "name": "Website Redesign",
+    "status": "active",
+    "description": "Complete overhaul of the marketing website with modern design system and improved performance."
+  },
+  {
+    "id": "proj-2",
+    "name": "Mobile App v2",
+    "status": "active",
+    "description": "Major update to the mobile application with new navigation, offline support, and push notifications."
+  },
+  {
+    "id": "proj-3",
+    "name": "API Platform",
+    "status": "on-hold",
+    "description": "Build a developer-facing API platform with documentation portal, rate limiting, and analytics."
+  }
+]
