@@ -16,7 +16,10 @@ export default {
 		// @ts-expect-error
 		watchIgnore: ["dist/**"],
 		mac: {
+			codesign: true,
+			notarize: true,
 			bundleCEF: false,
+			icons: "icon.iconset",
 		},
 		linux: {
 			bundleCEF: true,

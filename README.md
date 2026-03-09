@@ -1,6 +1,6 @@
-# React + Tailwind + Vite Electrobun Template
+# Electrobun - Vite + React + Tailwind + Shadcn-ui
 
-A fast Electrobun desktop app template with React, Tailwind CSS, and Vite for hot module replacement (HMR).
+A fast Electrobun desktop app template with React, Tailwind CSS + Shadcn-ui, and Vite.
 
 ## Getting Started
 
