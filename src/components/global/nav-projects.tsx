@@ -1,4 +1,5 @@
 import { ChevronsUpDownIcon, FolderKanbanIcon } from "lucide-react";
+import { useLocation, useNavigate } from "@tanstack/react-router";
 import { useActiveProject } from "@/lib/context/active-project";
 import type { Project } from "@/lib/types/project";
 import {
@@ -18,6 +19,8 @@ export function NavProjects({
   activeProjectId: string;
 }) {
   const { setActiveProjectId } = useActiveProject();
+  const location = useLocation();
+  const navigate = useNavigate();
   const activeProject = projects.find((p) => p.id === activeProjectId);
 
   if (!activeProject) {
@@ -55,7 +58,12 @@ export function NavProjects({
             {projects.map((project) => (
               <DropdownMenuItem
                 key={project.id}
-                onClick={() => setActiveProjectId(project.id)}
+                onClick={() => {
+                  setActiveProjectId(project.id);
+                  if (location.pathname !== "/") {
+                    void navigate({ to: "/" });
+                  }
+                }}
                 className="gap-2 p-2"
               >
                 <div className="flex size-6 items-center justify-center rounded-md border">
