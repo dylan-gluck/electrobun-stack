@@ -1,5 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
-import { electroview } from "@/bun/electroview";
+import { electroview } from "@/lib/electroview";
 import type { Task } from "@/lib/types/task";
 
 async function fetchTasksByProject(projectId: string): Promise<Task[]> {

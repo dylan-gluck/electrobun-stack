@@ -1,5 +1,5 @@
-import type { Task } from "@/lib/types/task";
-import * as taskService from "@/api/services/task.service";
+import type { Task } from "../../lib/types/task";
+import * as taskService from "../services/task.service";
 
 export function getTasksByProject({ projectId }: { projectId: string }): Task[] {
   return taskService.getTasksByProject(projectId);

@@ -1,5 +1,5 @@
-import type { Task } from "@/lib/types/task";
-import tasksJson from "@/lib/data/tasks.json";
+import type { Task } from "../../lib/types/task";
+import tasksJson from "../../lib/data/tasks.json";
 
 const tasks = tasksJson as Task[];
 

@@ -1,5 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
-import { electroview } from "@/bun/electroview";
+import { electroview } from "@/lib/electroview";
 import type { Project } from "@/lib/types/project";
 
 async function fetchProjects(): Promise<Project[]> {

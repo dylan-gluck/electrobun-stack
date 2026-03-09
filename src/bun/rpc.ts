@@ -1,9 +1,9 @@
 import { BrowserView } from "electrobun/bun";
 import type { RPCSchema } from "electrobun/bun";
-import type { Project } from "@/lib/types/project";
-import type { Task } from "@/lib/types/task";
-import * as projectController from "@/api/controllers/project.controller";
-import * as taskController from "@/api/controllers/task.controller";
+import type { Project } from "../lib/types/project";
+import type { Task } from "../lib/types/task";
+import * as projectController from "../api/controllers/project.controller";
+import * as taskController from "../api/controllers/task.controller";
 
 export type RPC = {
   bun: RPCSchema<{

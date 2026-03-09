@@ -1,5 +1,5 @@
-import type { Project } from "@/lib/types/project";
-import projectsJson from "@/lib/data/projects.json";
+import type { Project } from "../../lib/types/project";
+import projectsJson from "../../lib/data/projects.json";
 
 const projects = projectsJson as Project[];
 

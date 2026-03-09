@@ -1,5 +1,5 @@
 import { Electroview } from "electrobun/view";
-import type { RPC } from "./rpc";
+import type { RPC } from "@/bun/rpc";
 
 const rpc = Electroview.defineRPC<RPC>({
   handlers: {

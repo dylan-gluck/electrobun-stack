@@ -4,7 +4,7 @@ import { createHashHistory, createRouter, RouterProvider } from "@tanstack/react
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { routeTree } from "./routeTree.gen";
 import "@/styles/global.css";
-import "@/bun/electroview"; // Initialize Electroview early (enables drag regions)
+import "@/lib/electroview"; // Initialize Electroview early (enables drag regions)
 
 const queryClient = new QueryClient({
   defaultOptions: {
