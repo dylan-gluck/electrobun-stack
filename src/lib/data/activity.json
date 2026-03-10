@@ -6,7 +6,7 @@
     "taskTitle": "Design homepage mockup",
     "user": "Alice Chen",
     "action": "completed",
-    "detail": "Marked as completed",
+    "detail": "Completed Design homepage mockup",
     "timestamp": "2026-03-09T14:30:00Z"
   },
   {
@@ -16,7 +16,7 @@
     "taskTitle": "Implement design system tokens",
     "user": "Bob Park",
     "action": "updated",
-    "detail": "Added color token documentation",
+    "detail": "Updated Design system tokens to in progress",
     "timestamp": "2026-03-09T12:15:00Z"
   },
   {
@@ -26,7 +26,7 @@
     "taskTitle": "Accessibility audit",
     "user": "Dana Ortiz",
     "action": "commented",
-    "detail": "Found 3 contrast issues in the nav component",
+    "detail": "Commented on Accessibility audit",
     "timestamp": "2026-03-09T10:45:00Z"
   },
   {
@@ -36,7 +36,7 @@
     "taskTitle": "Implement offline data sync",
     "user": "Eve Nakamura",
     "action": "moved",
-    "detail": "Moved from Todo to In Progress",
+    "detail": "Moved Offline data sync to in progress",
     "timestamp": "2026-03-08T16:00:00Z"
   },
   {
@@ -46,7 +46,7 @@
     "taskTitle": "Set up CI/CD pipeline",
     "user": "Charlie Reeves",
     "action": "assigned",
-    "detail": "Assigned to Charlie Reeves",
+    "detail": "Assigned TASK-3 to Charlie Reeves",
     "timestamp": "2026-03-08T09:30:00Z"
   },
   {
@@ -56,7 +56,7 @@
     "taskTitle": "Navigation redesign",
     "user": "Grace Kim",
     "action": "completed",
-    "detail": "Final design approved and merged",
+    "detail": "Completed Navigation redesign",
     "timestamp": "2026-03-07T17:20:00Z"
   },
   {
@@ -65,8 +65,8 @@
     "taskId": "task-9",
     "taskTitle": "Performance profiling",
     "user": "Eve Nakamura",
-    "action": "commented",
-    "detail": "Startup time reduced to 1.8s on Pixel 7",
+    "action": "updated",
+    "detail": "Updated Performance profiling to in review",
     "timestamp": "2026-03-07T14:00:00Z"
   },
   {
@@ -76,7 +76,7 @@
     "taskTitle": "Design API authentication flow",
     "user": "Henry Walsh",
     "action": "created",
-    "detail": "Created task with initial spec",
+    "detail": "Created TASK-10",
     "timestamp": "2026-03-06T11:00:00Z"
   },
   {
@@ -85,8 +85,8 @@
     "taskId": "task-2",
     "taskTitle": "Implement design system tokens",
     "user": "Bob Park",
-    "action": "moved",
-    "detail": "Moved from Todo to In Progress",
+    "action": "assigned",
+    "detail": "Added Dana Ortiz to Website Redesign",
     "timestamp": "2026-03-06T09:00:00Z"
   },
   {
@@ -96,7 +96,7 @@
     "taskTitle": "Rate limiting implementation",
     "user": "Iris Patel",
     "action": "created",
-    "detail": "Created task with Redis architecture plan",
+    "detail": "Created TASK-11",
     "timestamp": "2026-03-05T15:30:00Z"
   }
 ]

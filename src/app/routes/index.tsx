@@ -37,12 +37,12 @@ function DashboardPage() {
     <>
       <PageHeader>
         <BreadcrumbItem>
-          <BreadcrumbPage>{activeProject?.name ?? "Dashboard"}</BreadcrumbPage>
+          <BreadcrumbPage>{"Dashboard"}</BreadcrumbPage>
         </BreadcrumbItem>
       </PageHeader>
 
       <div className="bg-background flex min-w-0 flex-1 flex-col gap-6 p-4">
-        {activeProject && <ProjectSummaryCard project={activeProject} tasks={tasks} />}
+        {activeProject && <ProjectSummaryCard project={activeProject} />}
 
         <StatsGrid
           totalTasks={totalTasks}
@@ -52,7 +52,7 @@ function DashboardPage() {
           overdueTasks={overdueTasks}
         />
 
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="grid gap-6 lg:grid-cols-2">
           <TaskVelocityChart />
           {activeProject && <ActivityFeed projectId={activeProject.id} />}
         </div>

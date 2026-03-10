@@ -23,19 +23,19 @@ bun run build:stable
 
 ## Scripts
 
-| Script         | Command                                              | Description                             |
-| -------------- | ---------------------------------------------------- | --------------------------------------- |
-| `start`        | `vite build && electrobun dev`                       | Build assets, launch in dev mode        |
-| `dev`          | `electrobun dev --watch`                             | Launch with file watching (no HMR)      |
-| `dev:hmr`      | `concurrently "vite" "vite build && electrobun dev"` | Vite HMR + Electrobun                   |
-| `build`        | `vite build && electrobun build`                     | Production build                        |
-| `build:canary` | `vite build && electrobun build --env=canary`        | Canary channel build                    |
-| `build:stable` | `vite build && electrobun build --env=stable`        | Stable channel build                    |
-| `lint`         | `oxlint`                                             | Lint (oxlint)                           |
-| `lint:fix`     | `oxlint --fix`                                       | Lint + autofix                          |
-| `fmt`          | `oxfmt`                                              | Format (oxfmt)                          |
-| `fmt:check`    | `oxfmt --check`                                      | Check formatting                        |
-| `ci`           | `concurrently "oxlint --fix" "oxfmt"`                | Lint + format (CI gate)                 |
+| Script         | Command                                              | Description                        |
+| -------------- | ---------------------------------------------------- | ---------------------------------- |
+| `start`        | `vite build && electrobun dev`                       | Build assets, launch in dev mode   |
+| `dev`          | `electrobun dev --watch`                             | Launch with file watching (no HMR) |
+| `dev:hmr`      | `concurrently "vite" "vite build && electrobun dev"` | Vite HMR + Electrobun              |
+| `build`        | `vite build && electrobun build`                     | Production build                   |
+| `build:canary` | `vite build && electrobun build --env=canary`        | Canary channel build               |
+| `build:stable` | `vite build && electrobun build --env=stable`        | Stable channel build               |
+| `lint`         | `oxlint`                                             | Lint (oxlint)                      |
+| `lint:fix`     | `oxlint --fix`                                       | Lint + autofix                     |
+| `fmt`          | `oxfmt`                                              | Format (oxfmt)                     |
+| `fmt:check`    | `oxfmt --check`                                      | Check formatting                   |
+| `ci`           | `concurrently "oxlint --fix" "oxfmt"`                | Lint + format (CI gate)            |
 
 ---
 
@@ -97,6 +97,7 @@ TanStack Query is configured with `networkMode: "always"` because RPC is local I
    ```
 3. Build the controller / service / repository chain in `src/api/`.
 4. Create a TanStack Query hook in `src/hooks/queries/`:
+
    ```ts
    import { electroview } from "@/lib/electroview";
 
@@ -193,6 +194,7 @@ components.json               # shadcn/ui configuration
 **Routes** -- Add files to `src/app/routes/`. Use `.` for nesting (e.g., `settings.profile.tsx` mounts at `/settings/profile`).
 
 **Components** -- shadcn/ui components live in `src/components/ui/`. Add more:
+
 ```bash
 bunx shadcn@latest add <component>
 ```
@@ -209,17 +211,17 @@ bunx shadcn@latest add <component>
 
 ## Stack
 
-| Layer          | Technology                                   |
-| -------------- | -------------------------------------------- |
-| Runtime        | [Electrobun](https://blackboard.sh/electrobun/docs/) 1.15 + Bun |
-| UI Framework   | React 19                                     |
-| Routing        | TanStack Router (file-based, hash history)   |
-| State          | TanStack Query                               |
-| Tables         | TanStack Table                               |
-| Components     | shadcn/ui (Radix + Base UI primitives)       |
-| Styling        | TailwindCSS 4 + tw-animate-css               |
-| Icons          | Lucide React                                 |
-| Charts         | Recharts                                     |
-| Build          | Vite 6                                       |
-| Language       | TypeScript 5.7                               |
-| Lint / Format  | oxlint + oxfmt                               |
+| Layer         | Technology                                                      |
+| ------------- | --------------------------------------------------------------- |
+| Runtime       | [Electrobun](https://blackboard.sh/electrobun/docs/) 1.15 + Bun |
+| UI Framework  | React 19                                                        |
+| Routing       | TanStack Router (file-based, hash history)                      |
+| State         | TanStack Query                                                  |
+| Tables        | TanStack Table                                                  |
+| Components    | shadcn/ui (Radix + Base UI primitives)                          |
+| Styling       | TailwindCSS 4 + tw-animate-css                                  |
+| Icons         | Lucide React                                                    |
+| Charts        | Recharts                                                        |
+| Build         | Vite 6                                                          |
+| Language      | TypeScript 5.7                                                  |
+| Lint / Format | oxlint + oxfmt                                                  |

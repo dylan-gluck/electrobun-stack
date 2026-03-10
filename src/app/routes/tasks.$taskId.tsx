@@ -61,7 +61,7 @@ function TaskDetailPage() {
       <PageHeader>
         <BreadcrumbItem className="hidden md:block">
           <BreadcrumbLink asChild>
-            <Link to="/">{project?.name ?? "Dashboard"}</Link>
+            <Link to="/">{"Dashboard"}</Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator className="hidden md:block" />

@@ -4,11 +4,9 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 
 import { Avatar, AvatarFallback, AvatarGroup, AvatarGroupCount } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
 import { formatLabel } from "@/lib/format";
 import { teamQueryOptions } from "@/hooks/queries/team";
 import type { Project } from "@/lib/types/project";
-import type { Task } from "@/lib/types/task";
 
 function getInitials(name: string): string {
   const parts = name.split(" ");
@@ -19,23 +17,24 @@ function getInitials(name: string): string {
 
 interface ProjectSummaryCardProps {
   project: Project;
-  tasks: Task[];
 }
 
-export function ProjectSummaryCard({ project, tasks }: ProjectSummaryCardProps) {
+export function ProjectSummaryCard({ project }: ProjectSummaryCardProps) {
   const { data: allMembers } = useSuspenseQuery(teamQueryOptions);
   const members = allMembers.filter((m) => project.teamMemberIds.includes(m.id));
   const visible = members.slice(0, 5);
   const remaining = members.length - visible.length;
-  const totalTasks = tasks.length;
-  const completedTasks = tasks.filter((t) => t.status === "completed").length;
-  const progress = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
 
   return (
-    <div className="flex flex-col gap-3 border-l-4 pl-4" style={{ borderLeftColor: project.color }}>
+    <div className="flex flex-col gap-3">
       <div className="flex items-center gap-3">
         <h2 className="text-xl font-semibold tracking-tight">{project.name}</h2>
-        <Badge variant="secondary">{formatLabel(project.status)}</Badge>
+        <Badge
+          variant="secondary"
+          style={{ backgroundColor: project.color, color: "white", borderColor: "transparent" }}
+        >
+          {formatLabel(project.status)}
+        </Badge>
       </div>
       <p className="text-sm text-muted-foreground">{project.description}</p>
       <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
@@ -54,12 +53,6 @@ export function ProjectSummaryCard({ project, tasks }: ProjectSummaryCardProps) 
           ))}
           {remaining > 0 && <AvatarGroupCount>+{remaining}</AvatarGroupCount>}
         </AvatarGroup>
-      </div>
-      <div className="flex items-center gap-3">
-        <Progress value={progress} className="flex-1" />
-        <span className="text-sm font-medium tabular-nums">
-          {completedTasks}/{totalTasks} tasks ({progress}%)
-        </span>
       </div>
     </div>
   );

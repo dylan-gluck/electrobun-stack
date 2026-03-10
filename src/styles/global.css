@@ -13,7 +13,7 @@
 
 @theme inline {
   --font-sans: "Figtree Variable", sans-serif;
-  --font-mono: 'JetBrains Mono Variable', monospace;
+  --font-mono: "JetBrains Mono Variable", monospace;
   --color-background: color-mix(var(--background), transparent 20%);
   --color-foreground: var(--foreground);
   --color-card: color-mix(var(--card), transparent 60%);

@@ -75,7 +75,7 @@ function createColumns(onTaskClick: (taskId: string) => void): ColumnDef<Task>[]
         <Button
           variant="ghost"
           size="sm"
-          className="-ml-3"
+          className="-ml-1"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Title
@@ -90,7 +90,7 @@ function createColumns(onTaskClick: (taskId: string) => void): ColumnDef<Task>[]
         <Button
           variant="ghost"
           size="sm"
-          className="-ml-3"
+          className="-ml-1"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Status
@@ -112,7 +112,7 @@ function createColumns(onTaskClick: (taskId: string) => void): ColumnDef<Task>[]
         <Button
           variant="ghost"
           size="sm"
-          className="-ml-3"
+          className="-ml-1"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Priority
@@ -134,7 +134,7 @@ function createColumns(onTaskClick: (taskId: string) => void): ColumnDef<Task>[]
         <Button
           variant="ghost"
           size="sm"
-          className="-ml-3"
+          className="-ml-1"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Assignee
@@ -159,7 +159,7 @@ function createColumns(onTaskClick: (taskId: string) => void): ColumnDef<Task>[]
         <Button
           variant="ghost"
           size="sm"
-          className="-ml-3"
+          className="-ml-1"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Due Date
