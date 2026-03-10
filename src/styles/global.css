@@ -1,25 +1,15 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@plugin "@tailwindcss/typography";
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/figtree";
 @import "@fontsource-variable/jetbrains-mono";
 
-@custom-variant dark (&:is(.dark *));
+@plugin "@tailwindcss/typography";
+
 @source "../../src/**/*.{ts,tsx}";
 @source "../../node_modules/radix-ui/**/*.{js,mjs}";
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  html {
-    @apply font-mono;
-  }
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --font-sans: "Figtree Variable", sans-serif;
@@ -131,4 +121,16 @@
   --sidebar-accent-foreground: oklch(0.987 0.002 197.1);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.56 0.021 213.5);
+}
+
+* {
+  @apply border-border outline-ring/50;
+}
+
+body {
+  @apply bg-background text-foreground;
+}
+
+html {
+  @apply font-mono;
 }
