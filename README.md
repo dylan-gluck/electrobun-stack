@@ -4,16 +4,13 @@ Bootstrap template for building native macOS desktop applications with [Electrob
 
 Ships with TanStack Router (hash-based, file-based routing), TanStack Query (async state over typed RPC), TanStack Table, and a layered backend (controller / service / repository) running on Bun.
 
+![Electrobun + Shadcn screenshot](assets/screenshot.png)
+
 ---
 
 ## Quick Start
 
 ```bash
-bun install
-
-# Build + launch the app
-bun run start
-
 # Development with Vite HMR (recommended)
 bun run dev:hmr
 
