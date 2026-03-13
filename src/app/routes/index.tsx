@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { BreadcrumbItem, BreadcrumbPage } from "@/components/ui/breadcrumb";
@@ -25,13 +26,22 @@ function DashboardPage() {
 
   const { data: tasks } = useSuspenseQuery(projectTasksQueryOptions(activeProject?.id ?? ""));
 
-  const totalTasks = tasks.length;
-  const completedTasks = tasks.filter((t) => t.status === "completed").length;
-  const inProgressTasks = tasks.filter((t) => t.status === "in-progress").length;
-  const inReviewTasks = tasks.filter((t) => t.status === "in-review").length;
-  const overdueTasks = tasks.filter(
-    (t) => t.status !== "completed" && new Date(t.dueDate) < new Date(),
-  ).length;
+  const { totalTasks, completedTasks, inProgressTasks, inReviewTasks, overdueTasks } = useMemo(() => {
+    const total = tasks.length;
+    const completed = tasks.filter((t) => t.status === "completed").length;
+    const inProgress = tasks.filter((t) => t.status === "in-progress").length;
+    const inReview = tasks.filter((t) => t.status === "in-review").length;
+    const overdue = tasks.filter(
+      (t) => t.status !== "completed" && new Date(t.dueDate) < new Date(),
+    ).length;
+    return {
+      totalTasks: total,
+      completedTasks: completed,
+      inProgressTasks: inProgress,
+      inReviewTasks: inReview,
+      overdueTasks: overdue,
+    };
+  }, [tasks]);
 
   return (
     <>
@@ -41,7 +51,7 @@ function DashboardPage() {
         </BreadcrumbItem>
       </PageHeader>
 
-      <div className="bg-background flex min-w-0 flex-1 flex-col gap-6 p-4">
+      <main className="bg-background flex min-w-0 flex-1 flex-col gap-6 p-3 md:p-4 lg:p-6">
         {activeProject && <ProjectSummaryCard project={activeProject} />}
 
         <StatsGrid
@@ -61,7 +71,7 @@ function DashboardPage() {
           tasks={tasks}
           onTaskClick={(taskId) => navigate({ to: "/tasks/$taskId", params: { taskId } })}
         />
-      </div>
+      </main>
     </>
   );
 }

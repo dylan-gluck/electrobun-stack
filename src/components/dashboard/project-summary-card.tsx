@@ -31,7 +31,8 @@ export function ProjectSummaryCard({ project }: ProjectSummaryCardProps) {
         <h2 className="text-xl font-semibold tracking-tight">{project.name}</h2>
         <Badge
           variant="secondary"
-          style={{ backgroundColor: project.color, color: "white", borderColor: "transparent" }}
+          className="border-transparent text-primary-foreground"
+          style={{ backgroundColor: project.color }}
         >
           {formatLabel(project.status)}
         </Badge>

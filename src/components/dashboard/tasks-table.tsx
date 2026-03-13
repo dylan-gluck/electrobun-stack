@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useState, useMemo, memo } from "react";
 import { format } from "date-fns";
 import {
   ArrowUpDownIcon,
   ChevronDownIcon,
-  CopyIcon,
   EyeIcon,
   MoreHorizontalIcon,
   RefreshCwIcon,
@@ -32,7 +31,6 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuSub,
   DropdownMenuSubContent,
@@ -231,14 +229,9 @@ function createColumns(onTaskClick: (taskId: string) => void): ColumnDef<Task>[]
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-48">
               <DropdownMenuGroup>
-                <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuItem onClick={() => onTaskClick(task.id)}>
                   <EyeIcon data-icon className="size-4" />
                   View Details
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => navigator.clipboard.writeText(task.id)}>
-                  <CopyIcon data-icon className="size-4" />
-                  Copy Task ID
                 </DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
@@ -278,7 +271,7 @@ function createColumns(onTaskClick: (taskId: string) => void): ColumnDef<Task>[]
   ];
 }
 
-function FacetedFilter({
+const FacetedFilter = memo(function FacetedFilter({
   title,
   options,
   selectedValues,
@@ -336,14 +329,14 @@ function FacetedFilter({
       </DropdownMenuContent>
     </DropdownMenu>
   );
-}
+});
 
 export function TasksTable({ tasks, onTaskClick }: TasksTableProps) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 
-  const columns = createColumns(onTaskClick);
+  const columns = useMemo(() => createColumns(onTaskClick), [onTaskClick]);
 
   const table = useReactTable({
     data: tasks,
@@ -377,6 +370,7 @@ export function TasksTable({ tasks, onTaskClick }: TasksTableProps) {
         <Badge variant="secondary">{tasks.length}</Badge>
         <div className="flex flex-1 flex-wrap items-center gap-2 sm:justify-end">
           <Input
+            aria-label="Filter tasks"
             placeholder="Filter tasks..."
             value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
             onChange={(e) => table.getColumn("title")?.setFilterValue(e.target.value)}
@@ -427,13 +421,25 @@ export function TasksTable({ tasks, onTaskClick }: TasksTableProps) {
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(header.column.columnDef.header, header.getContext())}
-                    </TableHead>
-                  ))}
+                  {headerGroup.headers.map((header) => {
+                    const sorted = header.column.getIsSorted();
+                    return (
+                      <TableHead
+                        key={header.id}
+                        aria-sort={
+                          sorted === "asc"
+                            ? "ascending"
+                            : sorted === "desc"
+                              ? "descending"
+                              : undefined
+                        }
+                      >
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(header.column.columnDef.header, header.getContext())}
+                      </TableHead>
+                    );
+                  })}
                 </TableRow>
               ))}
             </TableHeader>
@@ -442,8 +448,15 @@ export function TasksTable({ tasks, onTaskClick }: TasksTableProps) {
                 table.getRowModel().rows.map((row) => (
                   <TableRow
                     key={row.id}
-                    className="cursor-pointer"
+                    className="cursor-pointer focus-visible:bg-muted/50 focus-visible:outline-none"
+                    tabIndex={0}
                     onClick={() => onTaskClick(row.original.id)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        onTaskClick(row.original.id);
+                      }
+                    }}
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>

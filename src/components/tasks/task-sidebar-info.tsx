@@ -53,7 +53,7 @@ export function TaskSidebarInfo({ task, project }: TaskSidebarInfoProps) {
       <CardContent>
         <div className="flex flex-col gap-3">
           {items.map((item, i) => (
-            <div key={i}>
+            <div key={item.label}>
               <div className="flex items-center justify-between">
                 <span className="text-sm text-muted-foreground">{item.label}</span>
                 {item.value}

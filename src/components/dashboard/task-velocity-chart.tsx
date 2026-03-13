@@ -32,7 +32,7 @@ export function TaskVelocityChart() {
         <CardDescription>Tasks completed vs created per week</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="h-[250px] w-full">
+        <ChartContainer config={chartConfig} className="h-[180px] sm:h-[220px] md:h-[250px] w-full">
           <AreaChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
             <CartesianGrid vertical={false} />
             <XAxis dataKey="week" tickLine={false} axisLine={false} tickMargin={8} />
